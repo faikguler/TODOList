@@ -22,6 +22,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let priorityLow = document.getElementById('low');
 
 
+    let FilterAll = document.getElementById('FilterAll');
+    let FilterActive = document.getElementById('FilterActive');
+    let FilterCompleted = document.getElementById('FilterCompleted');
+
+
     // Task Array 
     let tasks = JSON.parse(localStorage.getItem('Faik_tasks')) || [];
 
@@ -58,7 +63,16 @@ document.addEventListener('DOMContentLoaded', function() {
     function listTasks() {
         const taskList = document.getElementById('tasklist'); 
         taskList.innerHTML = '';
-        tasks.forEach(task => {
+
+        let filteredTasks = tasks;
+        if (currentFilter === 'active') 
+            filteredTasks = tasks.filter(t => !t.complete);
+        else if (currentFilter === 'completed') 
+            filteredTasks = tasks.filter(t => t.complete);
+
+
+
+        filteredTasks.forEach(task => {
             console.log(`ID: ${task.id}, Text: ${task.text}, Completed: ${task.complete}, Priority: ${task.priority}`);
            
             const li = document.createElement('li');
@@ -96,6 +110,32 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('Faik_tasks', JSON.stringify(tasks));
             updateTaskCounts();
         };   
+
+        let currentFilter = 'all'; // default
+            
+        FilterAll.classList.add('active');
+        FilterActive.classList.remove('active');
+        FilterCompleted.classList.remove('active');
+
+        window.filterTasks = function(filter) {
+            currentFilter = filter;
+            
+            if (filter === 'all') {
+                FilterAll.classList.add('active');
+                FilterActive.classList.remove('active');
+                FilterCompleted.classList.remove('active');
+            } else if (filter === 'active') {
+                FilterAll.classList.remove('active');
+                FilterActive.classList.add('active');
+                FilterCompleted.classList.remove('active');
+            } else if (filter === 'completed') {
+                FilterAll.classList.remove('active');
+                FilterActive.classList.remove('active');
+                FilterCompleted.classList.add('active');
+            }
+
+            updateTaskCounts(); 
+        };
 
         window.editTask = function(taskId) {
             const task = tasks.find(t => t.id === taskId);
