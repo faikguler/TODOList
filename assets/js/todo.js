@@ -71,8 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             ${task.complete ? 'Completed' : task.priority + ' Priority'}
                         </span>
                     </div>
-                    <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
-                    <button class="btn btn-outline-danger btn-sm">Delete</button>
+                    <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal"  onclick="editTask(${task.id})">Edit</button>
+                    <button class="btn btn-outline-danger btn-sm"  onclick="deleteTask(${task.id})">Delete</button>
                 </div>
             `;
             taskList.appendChild(li);        
@@ -81,6 +81,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }    
 
+
+     window.editTask = function(taskId) {
+        const task = tasks.find(t => t.id === taskId);
+        if (!task) return;
+
+        alert(`task: ${task.text} ID: ${task.id}`);
+    }
+
+     window.deleteTask = function(taskId) {
+
+        tasks = tasks.filter(t => t.id !== taskId); 
+        localStorage.setItem('Faik_tasks', JSON.stringify(tasks));
+        updateTaskCounts();
+        alert('Task deleted.');
+    }
 
     function updateTaskCounts()
         {
