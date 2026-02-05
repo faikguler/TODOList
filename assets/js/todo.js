@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Elements 
     let totaltask = document.getElementById('totaltask');
-    let complatedtask = document.getElementById('complatedtask');
+    let completedtask = document.getElementById('completedtask');
     let remainingtask = document.getElementById('remainingtask');
 
 
@@ -27,6 +27,15 @@ document.addEventListener('DOMContentLoaded', function() {
     let FilterCompleted = document.getElementById('FilterCompleted');
 
 
+
+    taskAddinput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            taskAddBtn.click();            
+        }
+    });  
+
+
     // Task Array 
     let tasks = JSON.parse(localStorage.getItem('Faik_tasks')) || [];
 
@@ -46,6 +55,15 @@ document.addEventListener('DOMContentLoaded', function() {
         else if (document.getElementById('add-low').checked) {
             priority = 'Low';
         }
+
+
+        const isDuplicate = tasks.some(task => 
+            task.text.toLowerCase() === tasktext.toLowerCase()
+        );
+        if (isDuplicate) {
+            alert("This task already exists");
+            return;
+        }   
 
         let newTask = {
             id : Date.now(),
@@ -208,14 +226,14 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             if (tasks.length === 0) {
                 totaltask.textContent = '0';
-                complatedtask.textContent = '0';
+                completedtask.textContent = '0';
                 remainingtask.textContent = '0';
 
                 taskstatus.style.display = 'block';
             }
             else {
                 totaltask.textContent = tasks.length;
-                complatedtask.textContent = tasks.filter(task => task.complete).length;
+                completedtask.textContent = tasks.filter(task => task.complete).length;
                 remainingtask.textContent = tasks.length - tasks.filter(task => task.complete).length;
 
                 taskstatus.style.display = 'none';
