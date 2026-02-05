@@ -21,7 +21,7 @@
                 <div class="card border-primary">
                     <div class="card-body text-center">
                         <h5 class="card-title">Total Tasks</h5>
-                        <h2 class="text-primary">12</h2>
+                        <h2 class="text-primary" id="totaltask">0</h2>
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                 <div class="card border-success">
                     <div class="card-body text-center">
                         <h5 class="card-title">Completed</h5>
-                        <h2 class="text-success">8</h2>
+                        <h2 class="text-success" id="complatedtask">0</h2>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <div class="card border-warning">
                     <div class="card-body text-center">
                         <h5 class="card-title">Remaining</h5>
-                        <h2 class="text-warning">4</h2>
+                        <h2 class="text-warning" id="remainingtask">0</h2>
                     </div>
                 </div>
             </div>
@@ -50,8 +50,8 @@
             </div>
             <div class="card-body">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Write the task to do...">
-                    <button class="btn btn-primary" type="button">Add Task</button>
+                    <input type="text" class="form-control" id="taskAddinput" placeholder="Write the task to do...">
+                    <button class="btn btn-primary" type="button" id="taskAddBtn">Add Task</button>
                 </div>
                 
             </div>
