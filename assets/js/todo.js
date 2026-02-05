@@ -16,6 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let activetask = document.getElementById('activetask');
     let taskstatus = document.getElementById('taskstatus');
 
+    let taskEditInput = document.getElementById('taskEdit');
+    let priorityHigh = document.getElementById('high');
+    let priorityMedium = document.getElementById('medium');
+    let priorityLow = document.getElementById('low');
+
+
     // Task Array 
     let tasks = JSON.parse(localStorage.getItem('Faik_tasks')) || [];
 
@@ -86,8 +92,45 @@ document.addEventListener('DOMContentLoaded', function() {
         const task = tasks.find(t => t.id === taskId);
         if (!task) return;
 
-        alert(`task: ${task.text} ID: ${task.id}`);
+        //alert(`task: ${task.text} ID: ${task.id}`);
+        currentEditId = task.id;
+        
+        taskEditInput.value = task.text;
+
+        if (task.priority === 'High') 
+            priorityHigh.checked = true;
+        else if (task.priority === 'Medium') 
+            priorityMedium.checked = true;
+        else 
+            priorityLow.checked = true;
+
+
     }
+    window.updateTask = function(taskId) {
+        const task = tasks.find(t => t.id === taskId);
+        if (!task) return;
+
+        // new values
+        const newText = document.getElementById('taskEdit').value;
+        let newPriority = 'Low';
+        if (document.getElementById('high').checked) 
+            newPriority = 'High';
+        else if (document.getElementById('medium').checked) 
+            newPriority = 'Medium';
+        else if (document.getElementById('low').checked) 
+            newPriority = 'Low';
+
+
+        //alert(`Task ID: ${task.id} Old Text: ${task.text} New Text: ${newText} Old Priority: ${task.priority} New Priority: ${newPriority}`);
+
+        task.text = newText; 
+        task.priority = newPriority; 
+        
+        localStorage.setItem('Faik_tasks', JSON.stringify(tasks));
+
+        alert("Updated");
+        updateTaskCounts();
+    };
 
      window.deleteTask = function(taskId) {
 
