@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
             li.innerHTML = `
                 <div class="d-flex align-items-center">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" ${task.complete ? 'checked' : ''}>
+                        <input class="form-check-input" type="checkbox" onclick="taskComplete(${task.id}, this.checked)" ${task.complete ? 'checked' : ''}>
                     </div>
                     <div class="flex-grow-1">
                         <span class="${task.complete ? 'text-decoration-line-through text-muted' : ''}">
@@ -88,24 +88,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }    
 
 
-     window.editTask = function(taskId) {
-        const task = tasks.find(t => t.id === taskId);
-        if (!task) return;
+        window.taskComplete = function(taskId, isChecked) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
 
-        //alert(`task: ${task.text} ID: ${task.id}`);
-        currentEditId = task.id;
-        
-        taskEditInput.value = task.text;
+            task.complete = isChecked;
+            localStorage.setItem('Faik_tasks', JSON.stringify(tasks));
+            updateTaskCounts();
+        };   
 
-        if (task.priority === 'High') 
-            priorityHigh.checked = true;
-        else if (task.priority === 'Medium') 
-            priorityMedium.checked = true;
-        else 
-            priorityLow.checked = true;
+        window.editTask = function(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
 
+            //alert(`task: ${task.text} ID: ${task.id}`);
+            currentEditId = task.id;
+            
+            taskEditInput.value = task.text;
 
-    }
+            if (task.priority === 'High') 
+                priorityHigh.checked = true;
+            else if (task.priority === 'Medium') 
+                priorityMedium.checked = true;
+            else 
+                priorityLow.checked = true;
+        }
+
     window.updateTask = function(taskId) {
         const task = tasks.find(t => t.id === taskId);
         if (!task) return;
