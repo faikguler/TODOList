@@ -30,20 +30,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // Task Array 
     let tasks = JSON.parse(localStorage.getItem('Faik_tasks')) || [];
 
-
-
     taskAddBtn.addEventListener('click',function(){
         let tasktext = taskAddinput.value.trim();
         if (tasktext === "") {
             alert("Please write to task");
             return;
+        }  
+       
+        if (document.getElementById('add-high').checked) {
+            priority = 'High';
+        } 
+        else if (document.getElementById('add-medium').checked) {
+            priority = 'Medium';
+        } 
+        else if (document.getElementById('add-low').checked) {
+            priority = 'Low';
         }
 
         let newTask = {
             id : Date.now(),
             text : tasktext,
             complete : false , 
-            priority : 'Low' ,
+            priority : priority,
         };
 
         tasks.push(newTask);
@@ -79,10 +87,11 @@ document.addEventListener('DOMContentLoaded', function() {
             li.className = 'list-group-item';
             li.id = task.id; 
             li.innerHTML = `
-                <div class="d-flex align-items-center">
+                <div class="d-flex flex-wrap align-items-center gap-2">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" onclick="taskComplete(${task.id}, this.checked)" ${task.complete ? 'checked' : ''}>
                     </div>
+                    
                     <div class="flex-grow-1">
                         <span class="${task.complete ? 'text-decoration-line-through text-muted' : ''}">
                             ${task.text}
@@ -91,8 +100,15 @@ document.addEventListener('DOMContentLoaded', function() {
                             ${task.complete ? 'Completed' : task.priority + ' Priority'}
                         </span>
                     </div>
-                    <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal"  onclick="editTask(${task.id})">Edit</button>
-                    <button class="btn btn-outline-danger btn-sm"  onclick="deleteTask(${task.id})">Delete</button>
+                    
+                    <div class="text-nowrap">
+                        <small class="text-muted">${new Date(task.id).toLocaleString()}</small>
+                    </div>
+                    
+                    <div class="text-nowrap">
+                        <button class="btn btn-outline-warning btn-sm me-1" data-bs-toggle="modal" data-bs-target="#editModal" onclick="editTask(${task.id})">Edit</button>
+                        <button class="btn btn-outline-danger btn-sm" onclick="deleteTask(${task.id})">Delete</button>
+                    </div>
                 </div>
             `;
             taskList.appendChild(li);        

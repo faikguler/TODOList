@@ -49,11 +49,27 @@
                 <h5 class="mb-0">Add New Task</h5>
             </div>
             <div class="card-body">
+               <div class="mb-3">
+                    <label class="form-label">Priority</label>
+                        <div class="btn-group w-100">
+                            <input type="radio" class="btn-check" name="addpriority" id="add-high">
+                            <label class="btn btn-outline-danger" for="add-high">High</label>
+                                
+                            <input type="radio" class="btn-check" name="addpriority" id="add-medium">
+                            <label class="btn btn-outline-warning" for="add-medium">Medium</label>
+                                
+                            <input type="radio" class="btn-check" name="addpriority" id="add-low" checked>
+                            <label class="btn btn-outline-secondary" for="add-low">Low</label>
+                        </div>
+                </div>      
+                               
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="taskAddinput" placeholder="Write the task to do...">
                     <button class="btn btn-primary" type="button" id="taskAddBtn">Add Task</button>
                 </div>
                 
+
+            
             </div>
         </div>
 
