@@ -12,9 +12,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let taskAddinput = document.getElementById('taskAddinput');
     let taskAddBtn = document.getElementById('taskAddBtn');
 
+
+    let activetask = document.getElementById('activetask');
+    let taskstatus = document.getElementById('taskstatus');
+
     // Task Array 
     let tasks = JSON.parse(localStorage.getItem('Faik_tasks')) || [];
-    console.log(tasks);
 
 
 
@@ -41,24 +44,73 @@ document.addEventListener('DOMContentLoaded', function() {
         alert("Task added successfully!");
 
         updateTaskCounts();
+        
     });
 
 
 
-     function updateTaskCounts()
+    function listTasks() {
+        const taskList = document.getElementById('tasklist'); 
+        taskList.innerHTML = '';
+        tasks.forEach(task => {
+            console.log(`ID: ${task.id}, Text: ${task.text}, Completed: ${task.complete}, Priority: ${task.priority}`);
+           
+            const li = document.createElement('li');
+            li.className = 'list-group-item';
+            li.id = task.id; 
+            li.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" ${task.complete ? 'checked' : ''}>
+                    </div>
+                    <div class="flex-grow-1">
+                        <span class="${task.complete ? 'text-decoration-line-through text-muted' : ''}">
+                            ${task.text}
+                        </span>
+                        <span class="badge bg-${task.complete ? 'success' : task.priority === 'High'? 'danger' : task.priority === 'Medium' ? 'warning' : 'secondary'}">
+                            ${task.complete ? 'Completed' : task.priority + ' Priority'}
+                        </span>
+                    </div>
+                    <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+                    <button class="btn btn-outline-danger btn-sm">Delete</button>
+                </div>
+            `;
+            taskList.appendChild(li);        
+            
+        
+        });
+    }    
+
+
+    function updateTaskCounts()
         {
             if (tasks.length === 0) {
                 totaltask.textContent = '0';
                 complatedtask.textContent = '0';
                 remainingtask.textContent = '0';
+
+                taskstatus.style.display = 'block';
             }
             else {
-                totaltask.textContent = tasks.length;;
-                complatedtask.textContent = tasks.filter(task => task.completed).length;
-                remainingtask.textContent = tasks.filter(task => task.remaining).length;
+                totaltask.textContent = tasks.length;
+                complatedtask.textContent = tasks.filter(task => task.complete).length;
+                remainingtask.textContent = tasks.length - tasks.filter(task => task.complete).length;
+
+                taskstatus.style.display = 'none';
             }
+
+
+            activetask.textContent = remainingtask.textContent + ' active tasks';
+
+            listTasks();
         }
 
          updateTaskCounts();
+
+    // I didnt use function clearAllTasks because we are in addeventslistener otherwise we cant use in html button
+        window.clearAllTasks = function() {
+                localStorage.clear();
+                alert('All tasks deleted!');
+            };
 
 });

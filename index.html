@@ -73,18 +73,18 @@
         <div class="card shadow">
             <div class="card-header d-flex align-items-center  justify-content-between">
                 <h5>My Tasks</h5>
-                <span class="badge bg-primary">2 active tasks</span>
+                <span class="badge bg-primary" id="activetask">0 active tasks</span>
             </div>
             <div class="card-body p-0">
 
-                 <div class="text-center py-5 text-muted">
+                 <div class="text-center py-5 text-muted" id="taskstatus">
                     <h5>You haven't added tasks yet</h5>
                 </div>
 
 
 <!-- https://getbootstrap.com/docs/5.3/components/list-group/ -->
-                <ul class="list-group list-group-flush">
-                   
+                <ul class="list-group list-group-flush" id="tasklist">
+   <!--                
                     <li class="list-group-item">
                         <div class="d-flex align-items-center">
                             <div class="form-check ">
@@ -112,8 +112,16 @@
                             <button class="btn btn-outline-danger  btn-sm">Delete</button>
                         </div>
                     </li>
-                    
+                    -->
+
+
+
+
+
                 </ul>
+            </div>
+            <div class="card-footer" style="text-align: right;">
+                <button class="badge bg-primary" onclick="clearAllTasks()">Delete All Data</button>
             </div>
         </div>
 
