@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO List Application</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="assets/css/bootstrap5.3.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container py-4">
+        
+        <header class="text-center mb-5">
+            <h1 class="fw-bold display-5 text-primary">TODO List Application</h1>
+            <p class="lead text-muted">Add, edit and manage your tasks. All your tasks are here</p>
+        </header>
+
+        
+        <div class="row mb-4">
+            <div class="col-md-4 col-6 mb-4">
+                <div class="card border-primary">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Total Tasks</h5>
+                        <h2 class="text-primary">12</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-6 mb-4">
+                <div class="card border-success">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Completed</h5>
+                        <h2 class="text-success">8</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-6 mb-4">
+                <div class="card border-warning">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Remaining</h5>
+                        <h2 class="text-warning">4</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task Add -->
+        <div class="card mb-4">
+            <div class="card-header text-white bg-primary">
+                <h5 class="mb-0">Add New Task</h5>
+            </div>
+            <div class="card-body">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Write the task to do...">
+                    <button class="btn btn-primary" type="button">Add Task</button>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- For Filter 
+         https://getbootstrap.com/docs/5.3/components/buttons/ -->
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline-primary active">All</button>
+                    <button type="button" class="btn btn-outline-primary">Active</button>
+                    <button type="button" class="btn btn-outline-primary">Completed</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task List -->
+        <div class="card shadow">
+            <div class="card-header d-flex align-items-center  justify-content-between">
+                <h5>My Tasks</h5>
+                <span class="badge bg-primary">2 active tasks</span>
+            </div>
+            <div class="card-body p-0">
+
+                 <div class="text-center py-5 text-muted">
+                    <h5>You haven't added tasks yet</h5>
+                </div>
+
+
+<!-- https://getbootstrap.com/docs/5.3/components/list-group/ -->
+                <ul class="list-group list-group-flush">
+                   
+                    <li class="list-group-item">
+                        <div class="d-flex align-items-center">
+                            <div class="form-check ">
+                                <input class="form-check-input" type="checkbox" checked>
+                            </div>
+                            <div class="flex-grow-1">
+                                <span class="text-decoration-line-through text-muted">I added some things to the draft.</span>
+                                <span class="badge bg-success">Completed</span>
+                            </div>
+                            <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+                            <button class="btn btn-outline-danger btn-sm">Delete</button>
+                        </div>
+                    </li>
+                    
+                    <li class="list-group-item">
+                        <div class="d-flex align-items-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox">
+                            </div>
+                            <div class="flex-grow-1">
+                                <span>Todo List project complete</span>
+                                <span class="badge bg-danger">High Priority</span>
+                            </div>
+                            <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+                            <button class="btn btn-outline-danger  btn-sm">Delete</button>
+                        </div>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+
+        <!-- Edit Modal 
+        https://getbootstrap.com/docs/5.3/components/modal/ 
+        -->
+        <div class="modal fade" id="editModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Task</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Task Text</label>
+                            <input type="text" class="form-control" id="taskEdit" value="I will bring old value">
+                            <div class="form-text">Edit and save the task text.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Priority</label>
+                            <div class="btn-group w-100">
+                                <input type="radio" class="btn-check" name="priority" id="high" checked>
+                                <label class="btn btn-outline-danger">High</label>
+                                
+                                <input type="radio" class="btn-check" name="priority" id="medium">
+                                <label class="btn btn-outline-warning">Medium</label>
+                                
+                                <input type="radio" class="btn-check" name="priority" id="low">
+                                <label class="btn btn-outline-secondary">Low</label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="py-4 mt-5  border-top">
+            <div class="text-center mt-3 text-muted">
+                <small>Faik Ramadan -TODO List Application - Bootstrap 5.3</small>
+            </div>
+        </footer>
+    </div>
+
+    
+    <script src="assets/js/bootstrap.bundle.5.3min.js"></script>
+    <script src="assets/js/todo.js"></script>
+</body>
+</html>
