@@ -251,6 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
         window.clearAllTasks = function() {
                 localStorage.clear();
                 alert('All tasks deleted!');
+                updateTaskCounts()
             };
 
 });
