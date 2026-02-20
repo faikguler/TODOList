@@ -249,7 +249,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // I didnt use function clearAllTasks because we are in addeventslistener otherwise we cant use in html button
         window.clearAllTasks = function() {
-                localStorage.clear();
+                localStorage.removeItem('Faik_tasks');
+                tasks = [];
                 alert('All tasks deleted!');
                 updateTaskCounts()
             };
